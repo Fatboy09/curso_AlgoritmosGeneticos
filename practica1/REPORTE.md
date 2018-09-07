@@ -26,8 +26,8 @@ Una distribución de frecuencia acumulativa nos permite ver cuantas observacione
 
 ### Capturas de pantalla
 
-![Cap01](../assets/cap01.png)
-![Cap02](../assets/cap02.png)
+![Cap01](https://github.com/Fatboy09/curso_AlgoritmosGeneticos/blob/assets/practica1/cap01.png)
+![Cap02](https://github.com/Fatboy09/curso_AlgoritmosGeneticos/blob/assets/practica1/cap02.png)
 
 
 ### Conclusión
