@@ -26,8 +26,8 @@ Una distribución de frecuencia acumulativa nos permite ver cuantas observacione
 
 ### Capturas de pantalla
 
-![Cap01](../assets/cap01.png?raw=true)
-![Cap02](../assets/cap02.png?raw=true)
+![Cap01](../assets/cap01.png)
+![Cap02](../assets/cap02.png)
 
 
 ### Conclusión
