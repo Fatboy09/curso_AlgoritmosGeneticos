@@ -23,7 +23,7 @@ void imprimir_poblacionG(int b[][ALELO+1], int g[][ALELO+1])
 
 void crear_poblacionG(int gray[][ALELO+1])
 {
-    register int i,j,a,b,c;
+    register int i,j;
     int individuo[INDIVIDUOS][ALELO+1];
     int alelo;
     
