@@ -32,15 +32,32 @@ El valor de p permanece fijo a lo largo de todo el proceso evolutivo y se escoge
 
 ### Capturas de pantalla
 10 Generaciones:
+
+
 ![Capt01](https://github.com/Fatboy09/curso_AlgoritmosGeneticos/blob/assets/practica1/p4_capt01.png)
+
+
 30 Generaciones:
+
+
 ![Capt02](https://github.com/Fatboy09/curso_AlgoritmosGeneticos/blob/assets/practica1/p4_capt02.png)
+
+
 50 Generaciones:
+
+
 ![Capt03](https://github.com/Fatboy09/curso_AlgoritmosGeneticos/blob/assets/practica1/p4_capt03.png)
+
+
 100 Generaciones:
+
+
 ![Capt04](https://github.com/Fatboy09/curso_AlgoritmosGeneticos/blob/assets/practica1/p4_capt04.png)
 
+
 salida de pantalla del programa:
+
+
 ![Capt05](https://github.com/Fatboy09/curso_AlgoritmosGeneticos/blob/assets/practica1/p4_capt05.png)
 ![Capt06](https://github.com/Fatboy09/curso_AlgoritmosGeneticos/blob/assets/practica1/p4_capt06.png)
 ![Capt07](https://github.com/Fatboy09/curso_AlgoritmosGeneticos/blob/assets/practica1/p4_capt07.png)
