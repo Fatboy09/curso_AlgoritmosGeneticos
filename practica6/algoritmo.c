@@ -33,3 +33,22 @@ void cruzar(int p1[], int p2[], int h[], int n)
     }
 }
 
+void cruzar2(int p1[],int p2[], int h[], int pt1, int pt2)
+{
+    register int i;
+    
+    for(i = 0; i < alelos; i++)
+    {
+        if(i < pt1)
+            h[i] = p1[i];
+        else{
+            if(i <= pt2)
+                h[i] = p2[i];
+            else
+                h[i] = p1[i];
+        }
+        
+        printf("%d",h[i]);
+    }
+}
+

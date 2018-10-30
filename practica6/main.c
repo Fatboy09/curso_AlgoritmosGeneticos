@@ -15,7 +15,7 @@ int individuos, alelos;
 int main()
 {   
     register int m,n;
-    int ptCruza, bandera = FALSE;
+    int ptCruza, ptCruza2, aux, bandera = FALSE;
     char opc;
     srand(getpid());
 
@@ -45,7 +45,8 @@ int main()
             case '1':
                 printf("No.\t|cruza       \t|P Cruza \t|Descendencia\n");
                 printf("--------+---------------+---------------+-------------\n");
-                if(bandera){
+                if(bandera)
+                {
                     for(m = 0; m < individuos-1; m++)
                     {
                         printf("%3d\t|  ",m+1);
@@ -115,6 +116,103 @@ int main()
                 break;
                 
             case '2':
+                printf("No.\t|cruza       \t|P Cruza \t|Descendencia\n");
+                printf("--------+---------------+---------------+-------------\n");
+                if(bandera)
+                {
+                    for(m = 0; m < individuos-1; m++)
+                    {
+                        printf("%3d\t|  ",m+1);
+                        
+                        if((m % 2) == 0)
+                        {            
+                            ptCruza = (rand() % (alelos-1))+1;
+                            ptCruza2 = (rand() % (alelos-1))+1;
+                            while(ptCruza2 == ptCruza)
+                                ptCruza2 = (rand() % (alelos-1))+1;
+                            
+                            if(ptCruza > ptCruza2){
+                                aux = ptCruza;
+                                ptCruza = ptCruza2;
+                                ptCruza2 = aux;
+                            }
+                        }
+                        
+                        for(n = 0; n < alelos; n++)
+                        {
+                            if(ptCruza == n)
+                                printf("|%d",a[m][n]);
+                            else if(ptCruza2 == n)
+                                printf("%d|",a[m][n]);
+                            else
+                                printf("%d",a[m][n]);
+                        }
+                        printf("\t|%4d,%d\t\t|    ",ptCruza, ptCruza2);
+                        if((m % 2) == 0)
+                            cruzar2(a[m],a[m+1],hijos[m],ptCruza,ptCruza2);
+                        else
+                            cruzar2(a[m],a[m-1],hijos[m],ptCruza,ptCruza2);
+                        
+                        printf("\n");
+                    }
+                    printf("%3d\t|  ",m+1);
+                    if((m % 2) == 0)
+                    {            
+                        ptCruza = (rand() % (alelos-1))+1;
+                        ptCruza2 = (rand() % (alelos-1))+1;
+                    }
+                    for(n = 0; n < alelos; n++)
+                    {
+                        if(ptCruza == n)
+                            printf("|%d",a[m][n]);
+                        else if(ptCruza2 == n)
+                            printf("%d|",a[m][n]);
+                        else
+                            printf("%d",a[m][n]);
+                    }
+                    printf("\t|%4d,%d\t\t|    ",ptCruza, ptCruza2);
+                    imprimirArray(a[m]);
+                }
+                else{
+                    for(m = 0; m < individuos; m++)
+                    {
+                        printf("%3d\t|  ",m+1);
+                        
+                        if((m % 2) == 0)
+                        {            
+                            ptCruza = (rand() % (alelos-1))+1;
+                            ptCruza2 = (rand() % (alelos-1))+1;
+                            while(ptCruza2 == ptCruza)
+                                ptCruza2 = (rand() % (alelos-1))+1;
+                            
+                            if(ptCruza > ptCruza2){
+                                aux = ptCruza;
+                                ptCruza = ptCruza2;
+                                ptCruza2 = aux;
+                            }
+                        }
+                        
+                        for(n = 0; n < alelos; n++)
+                        {
+                            if(ptCruza == n)
+                                printf("|%d",a[m][n]);
+                            else if(ptCruza2 == n)
+                                printf("%d|",a[m][n]);
+                            else
+                                printf("%d",a[m][n]);
+                        }
+                        printf("\t|%4d,%d\t\t|    ",ptCruza, ptCruza2);
+                        if((m % 2) == 0)
+                            cruzar2(a[m],a[m+1],hijos[m],ptCruza,ptCruza2);
+                        else
+                            cruzar2(a[m],a[m-1],hijos[m],ptCruza,ptCruza2);
+                        
+                        printf("\n");
+                    }
+                }
+                printf("\n\nPresione la tecla enter para continuar...");
+                vaciar_buffer();
+                getchar();
                 opc = 0;
                 break;
                 
