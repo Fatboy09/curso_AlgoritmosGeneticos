@@ -7,7 +7,8 @@
 #include"binario.h"
 #include"algoritmo.h"
 
-void imprimirArray(int a[]);
+int cmpfunc (const void * a, const void * b);
+void imprimirArray(int a[],int tam);
 void vaciar_buffer();
 
 int individuos, alelos;
@@ -27,12 +28,12 @@ int main()
     printf("Ingrese el numero de alelos que desea: ");
     scanf("%d", &alelos);
     
-    int a[individuos][alelos+1], hijos[individuos][alelos+1];
+    int a[individuos][alelos+1], hijos[individuos][alelos+1], pattern[alelos];
     crear_poblacionBin(a);
     
     do{
         system("clear");
-        printf("\nTecnicas de cruza:\n");
+        printf("\nTecnicas de cruza:\n\n");
         printf("1. Cruza de un punto\n");
         printf("2. Cruza de dos punto\n");
         printf("3. Cruza uniforme\n");
@@ -43,7 +44,7 @@ int main()
         opc = getchar();
         switch(opc){
             case '1':
-                printf("No.\t|cruza       \t|P Cruza \t|Descendencia\n");
+                printf("\nNo.\t|cruza       \t|P Cruza \t|Descendencia\n");
                 printf("--------+---------------+---------------+-------------\n");
                 if(bandera)
                 {
@@ -61,7 +62,7 @@ int main()
                             else
                                 printf("%d",a[m][n]);
                         }
-                        printf("\t|%4d\t\t|    ",ptCruza);
+                        printf("\t|%4d\t\t|   ",ptCruza);
                         if((m % 2) == 0)
                             cruzar(a[m],a[m+1],hijos[m],ptCruza);
                         else
@@ -79,8 +80,8 @@ int main()
                         else
                             printf("%d",a[m][n]);
                     }
-                    printf("\t|%4d\t\t|    ",ptCruza);
-                    imprimirArray(a[m]);
+                    printf("\t|%4d\t\t|   ",ptCruza);
+                    imprimirArray(a[m],alelos);
                 }
                 else
                 {
@@ -95,11 +96,11 @@ int main()
                         {
                             if(ptCruza == n)
                                 printf("|%d",a[m][n]);
-                                //printf("|");
+
                             else
                                 printf("%d",a[m][n]);
                         }
-                        printf("\t|%4d\t\t|    ",ptCruza);
+                        printf("\t|%4d\t\t|   ",ptCruza);
                         if((m % 2) == 0)
                             cruzar(a[m],a[m+1],hijos[m],ptCruza);
                         else
@@ -116,7 +117,7 @@ int main()
                 break;
                 
             case '2':
-                printf("No.\t|cruza       \t|P Cruza \t|Descendencia\n");
+                printf("\nNo.\t|cruza       \t|P Cruza \t|Descendencia\n");
                 printf("--------+---------------+---------------+-------------\n");
                 if(bandera)
                 {
@@ -147,7 +148,7 @@ int main()
                             else
                                 printf("%d",a[m][n]);
                         }
-                        printf("\t|%4d,%d\t\t|    ",ptCruza, ptCruza2);
+                        printf("\t|%4d,%d\t\t|   ",ptCruza, ptCruza2);
                         if((m % 2) == 0)
                             cruzar2(a[m],a[m+1],hijos[m],ptCruza,ptCruza2);
                         else
@@ -156,11 +157,18 @@ int main()
                         printf("\n");
                     }
                     printf("%3d\t|  ",m+1);
-                    if((m % 2) == 0)
-                    {            
-                        ptCruza = (rand() % (alelos-1))+1;
+           
+                    ptCruza = (rand() % (alelos-1))+1;
+                    ptCruza2 = (rand() % (alelos-1))+1;
+                    while(ptCruza2 == ptCruza)
                         ptCruza2 = (rand() % (alelos-1))+1;
+                    
+                    if(ptCruza > ptCruza2){
+                        aux = ptCruza;
+                        ptCruza = ptCruza2;
+                        ptCruza2 = aux;
                     }
+
                     for(n = 0; n < alelos; n++)
                     {
                         if(ptCruza == n)
@@ -170,8 +178,8 @@ int main()
                         else
                             printf("%d",a[m][n]);
                     }
-                    printf("\t|%4d,%d\t\t|    ",ptCruza, ptCruza2);
-                    imprimirArray(a[m]);
+                    printf("\t|%4d,%d\t\t|   ",ptCruza, ptCruza2);
+                    imprimirArray(a[m],alelos);
                 }
                 else{
                     for(m = 0; m < individuos; m++)
@@ -201,7 +209,7 @@ int main()
                             else
                                 printf("%d",a[m][n]);
                         }
-                        printf("\t|%4d,%d\t\t|    ",ptCruza, ptCruza2);
+                        printf("\t|%4d,%d\t\t|   ",ptCruza, ptCruza2);
                         if((m % 2) == 0)
                             cruzar2(a[m],a[m+1],hijos[m],ptCruza,ptCruza2);
                         else
@@ -217,6 +225,79 @@ int main()
                 break;
                 
             case '3':
+                printf("\nNo.\t|pobla Ini       \t|Pattern  \t|Descendencia\n");
+                printf("--------+-----------------------+---------------+-------------\n");
+                
+                if(bandera)
+                {
+                    for(m = 0; m < individuos-1; m++)
+                    {
+                        printf("%3d\t|  ",m+1);
+                        
+                        if(m % 2 == 0)
+                            getPattern(pattern);
+                        
+                        for(n = 0; n < alelos; n++)
+                            printf("%d",a[m][n]);
+                        
+                        printf("\t\t|   ");
+                        
+                        for(n = 0; n < alelos; n++)
+                            printf("%d",pattern[n]);
+                        
+                        printf("\t|   ");
+                        
+                        if((m % 2) == 0)
+                            cruzaUniforme(a[m],a[m+1],hijos[m],pattern);
+                        else
+                            cruzaUniforme(a[m],a[m-1],hijos[m],pattern);
+                        
+                        printf("\n");
+                    }
+                    printf("%3d\t|  ",m+1);
+                    getPattern(pattern);
+                    for(n = 0; n < alelos; n++)
+                        printf("%d",a[m][n]);
+                    
+                    printf("\t\t|   ");
+                        
+                    for(n = 0; n < alelos; n++)
+                        printf("%d",pattern[n]);
+                    
+                    printf("\t|   ");
+                    imprimirArray(a[m],alelos);
+                
+                }else{
+                
+                    for(m = 0; m < individuos; m++)
+                    {
+                        printf("%3d\t|  ",m+1);
+                        
+                        if(m % 2 == 0)
+                            getPattern(pattern);
+                        
+                        for(n = 0; n < alelos; n++)
+                            printf("%d",a[m][n]);
+                        
+                        printf("\t\t|   ");
+                        
+                        for(n = 0; n < alelos; n++)
+                            printf("%d",pattern[n]);
+                        
+                        printf("\t|   ");
+                        
+                        if((m % 2) == 0)
+                            cruzaUniforme(a[m],a[m+1],hijos[m],pattern);
+                        else
+                            cruzaUniforme(a[m],a[m-1],hijos[m],pattern);
+                        
+                        printf("\n");
+                    } 
+                }
+                
+                printf("\n\nPresione la tecla enter para continuar...");
+                vaciar_buffer();
+                getchar();
                 opc = 0;
                 break;
             
@@ -243,11 +324,16 @@ int main()
     return 0;
 }
 
-void imprimirArray(int a[])
+
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
+
+void imprimirArray(int a[], int tam)
 {
     register int i;
     
-    for(i = 0; i < alelos; i++)
+    for(i = 0; i < tam; i++)
     {
         printf("%d",a[i]);
     }
