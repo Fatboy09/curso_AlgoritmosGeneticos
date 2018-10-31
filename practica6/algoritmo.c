@@ -3,7 +3,7 @@
 #include<math.h>
 #include"defs.h"
 
-extern int alelos;
+extern int alelos, individuos;
 
 int To_decimal(int a[])
 {
@@ -22,10 +22,9 @@ void getPattern(int a[])
 {
     int i, j, contador, indice;
     int tam = PC*alelos;
-    int mascara[alelos];
     
     for(i = 0; i < alelos; i++)
-        mascara[i] = FALSE;
+        a[i] = FALSE;
     
     contador = 0;
     
@@ -37,15 +36,25 @@ void getPattern(int a[])
         while(j < indice)
             j++;
         
-        if(!mascara[j]){
-            mascara[j] = 1;
+        if(!a[j]){
+            a[j] = 1;
             contador++;
         }   
     }
-    
-    for(i = 0; i < alelos; i++){
-        a[i] = mascara[i];
-    }
+}
+
+void getMarcas(int m[][alelos+1])
+{
+	register int i,j;
+	int n;
+	
+	for(i = 0; i < individuos; i++){
+		for(j = 0; j < alelos; j++){
+			n = rand() % 2;
+			m[i][j] = n;
+		}
+	}
+	
 }
 
 void cruzar(int p1[], int p2[], int h[], int n)
@@ -96,3 +105,27 @@ void cruzaUniforme(int p1[], int p2[],int h[], int patron[])
     }
 }
 
+void cruzaAcentuada(int p1[], int p2[],int h[], int mP1[], int mP2[])
+{
+	register int i;
+	int flagP1 = TRUE;
+	
+	for(i = 0; i < alelos; i++){
+		if(!mP1[i] && !mP2[i]){
+			if(flagP1)
+				h[i] = p1[i];
+			else
+				h[i] = p2[i];
+		}else{
+			if(flagP1)
+				h[i] = p1[i];
+			else
+				h[i] = p2[i];
+			if(flagP1)
+				flagP1 = FALSE;
+			else
+				flagP1 = TRUE;
+		}
+		printf("%d",h[i]);
+	}
+}
