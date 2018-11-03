@@ -111,3 +111,35 @@ void OrderCrossover(int p1[], int p2[], int h[], int subCad[])
         printf("%d",h[m]);
     }
 }
+
+void PartiallyMappedCrossover(int p1[], int p2[], int h[], int ptP1, int pt2P1, int ptP2, int pt2P2)
+{
+    register int i;
+    int a = pt2P2 - ptP2;
+    int tam = alelos - a;
+    int list[tam], indice, j;
+
+    for(i = 0; i < alelos; i++)
+        h[i] = -1;
+
+    for(i = ptP2; i <= pt2P2; i++)
+    {
+        h[i] = p2[i];
+    }
+
+    /*for(i = 0, j = 0; i < alelos; i++)
+    {
+        indice = buscar(h,p1[i]);
+        if(indice == -1)
+        {
+            while(h[j] != -1)
+                j++;
+
+            h[j]=p1[i];
+            j++;
+        }
+    }*/
+
+    for(i = 0; i < alelos; i++)
+        printf("%d",h[i]);
+}
