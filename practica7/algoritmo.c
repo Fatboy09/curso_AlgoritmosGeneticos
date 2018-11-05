@@ -229,3 +229,53 @@ void PositionBasedCrossover(int p1[], int p2[], int h[])
     for(i = 0; i < alelos; i++)
         printf("%d",h[i]);
 }
+
+void OrderBasedCrossover(int p1[], int p2[], int h[])
+{
+    int numAlelos = 1;
+    int i, indice, j;
+
+    if(alelos > 2) 
+        numAlelos = (rand() % (alelos-2)+1)+1;
+
+    int posiciones[numAlelos], auxP1[alelos-numAlelos];
+
+    for(i = 0; i < alelos; i++)
+        h[i] = -1;
+
+    randomNumbers(posiciones,numAlelos,alelos);
+    printf("\t\t|   ");
+    for(i = 0; i < numAlelos; i++)
+    {
+        indice = buscar(p2,p1[posiciones[i]]);
+        if(indice != -1)
+            h[indice] = p2[indice];
+    }
+
+    for(i = 0; i < alelos; i++){
+        if(h[i] != -1)
+            printf("%d",h[i]);
+        else
+            printf("x");
+    }
+
+    for(i = 0, j = 0; i < alelos; i++){
+        indice = buscar(h,p1[i]);
+        if(indice == -1){
+            auxP1[j] = p1[i];
+            j++;
+        }
+    }
+
+    for(i = 0, j = 0; i < alelos; i++){
+        if(h[i] == -1){
+            h[i] = auxP1[j];
+            j++;
+        }
+    }
+
+    printf(" => ");
+
+    for(i = 0; i < alelos; i++)
+        printf("%d",h[i]);
+}

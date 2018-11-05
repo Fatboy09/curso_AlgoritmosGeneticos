@@ -299,11 +299,40 @@ int main()
                 break;
             
             case '4':
-            	
+                printf("\n----------------+-----------------------+------------------------\n");
+                printf("      No.\t|\tPobla Ini\t|\tDescendencia\n");
+                printf("----------------+-----------------------+------------------------\n");
             	if(bandera){
+                    for(m = 0; m < individuos-1; m++){
+                        printf("%8d\t|%4d",m+1,a[m][0]);
+                        for(n = 1; n < alelos; n++){
+                            printf("%d",a[m][n]);
+                        }
+                        if((m%2) == 0)
+                            OrderBasedCrossover(a[m],a[m+1],hijos[m]);
+                        else
+                            OrderBasedCrossover(a[m],a[m-1],hijos[m]);
+                        printf("\n");
+                    }
+                    printf("%8d\t|%4d",m+1,a[m][0]);
+                    for(n = 1; n < alelos; n++){
+                        printf("%d",a[m][n]);
+                    } 
+                    printf("\t\t|   ");
+                    imprimirArray(a[m],alelos);
             		
             	}else{
-            		
+                    for(m = 0; m < individuos; m++){
+                        printf("%8d\t|%4d",m+1,a[m][0]);
+                        for(n = 1; n < alelos; n++){
+                            printf("%d",a[m][n]);
+                        }
+                        if((m%2) == 0)
+                            OrderBasedCrossover(a[m],a[m+1],hijos[m]);
+                        else
+                            OrderBasedCrossover(a[m],a[m-1],hijos[m]);
+                        printf("\n");
+                    }
             	}
             	printf("\n\nPresione la tecla enter para continuar...");
                 vaciar_buffer();
