@@ -5,6 +5,34 @@
 
 extern int alelos, individuos;
 
+void randomNumbers(int a[], int tam, int num)
+{
+    int elegidos[num];                                   // ¿ya salio ese numero? (del 0 a alelos-1)
+    int posibles = num, contador, posicion, i, j;
+
+    
+    for( i = 0; i < num; i++)
+        elegidos[i] = FALSE;                                // Empieza que no se ha elegido ningun numero
+    
+    
+    for( i = 0; i < tam; i++)
+    {
+        posicion = rand() % posibles+1;     // elige al azar una posicion entre los no elegidos (de 1 a INDIVIDUOS)
+        j = 0;
+        contador = 0;                       // cuenta los numeros no elegidos que encuenta.
+        
+        while(contador < posicion)      // Cuenta las posiciones no elegidas
+        {
+            if(!elegidos[j++])
+                contador++;             // Si el numero ya fue elegido se ignora 
+        }
+        j--;                            // Cuando encuentra la posicion hace un j++ de mas.
+        elegidos[j] = TRUE;             // se marca la posicion como elegida
+        posibles--;                     // hay una posicion "no elegida" menos
+        a[i] = j;                       // La posicion dentro la lista de elegidos es el numero a guardar
+    } 
+}
+
 void crearPoblacion(int a[])
 {
     int elegidos[alelos];                                   // ¿ya salio ese numero? (del 0 a alelos-1)
@@ -112,7 +140,7 @@ void OrderCrossover(int p1[], int p2[], int h[], int subCad[])
     }
 }
 
-void PartiallyMappedCrossover(int p1[], int p2[], int h[], int ptP1, int pt2P1, int ptP2, int pt2P2)
+void PartiallyMappedCrossover(int p1[], int p2[], int h[], int ptP2, int pt2P2)
 {
     register int i;
     int indice, j;
@@ -150,6 +178,53 @@ void PartiallyMappedCrossover(int p1[], int p2[], int h[], int ptP1, int pt2P1, 
             j++;
         }
     }
+
+    for(i = 0; i < alelos; i++)
+        printf("%d",h[i]);
+}
+
+void PositionBasedCrossover(int p1[], int p2[], int h[])
+{
+    int numAlelos = 1;
+    int i, indice, j;
+
+    if(alelos > 2) 
+        numAlelos = (rand() % (alelos-2)+1)+1;
+
+    int posiciones[numAlelos], auxP2[alelos-numAlelos];
+
+    for(i = 0; i < alelos; i++)
+        h[i] = -1;
+
+    randomNumbers(posiciones,numAlelos,alelos);
+
+    printf("\t\t|   ");
+    for(i = 0; i < numAlelos; i++)
+    {
+        h[posiciones[i]] = p1[posiciones[i]];
+    }
+    for(i = 0; i < alelos; i++){
+        if(h[i] != -1)
+            printf("%d",h[i]);
+        else
+            printf("x");
+    }
+
+    for(i = 0, j = 0; i < alelos; i++){
+        indice = buscar(h,p2[i]);
+        if(indice == -1){
+            auxP2[j] = p2[i];
+            j++;
+        }
+    }
+    
+    for(i = 0, j = 0; i < alelos; i++){
+        if(h[i] == -1){
+            h[i] = auxP2[j];
+            j++;
+        }
+    }
+    printf(" => ");
 
     for(i = 0; i < alelos; i++)
         printf("%d",h[i]);

@@ -135,7 +135,71 @@ int main()
                 printf("----------------+-----------------------+-----------------------+------------------------\n");
                 if(bandera)
                 {
-                    
+                    for(m = 0; m < individuos-1; m++){
+                        printf("%8d\t|%4d",m+1,a[m][0]);
+                        for(n = 1; n < alelos; n++){
+                            printf("%d",a[m][n]);
+                        }
+
+                        if((m%2) == 0){
+                            ptCP1 = (rand() % (alelos-1))+1;
+                            ptC2P1 = (rand() % (alelos-1))+1;
+
+                            while(ptC2P1 == ptCP1)
+                                ptC2P1 = (rand() % (alelos-1))+1;
+                            
+                            if(ptCP1 > ptC2P1){
+                                aux = ptCP1;
+                                ptCP1 = ptC2P1;
+                                ptC2P1 = aux;
+                            }
+
+                            ptCP2 = (rand() % (alelos-1))+1;
+                            ptC2P2 = (rand() % (alelos-1))+1;
+    
+                            while(ptC2P2 == ptCP2)
+                            ptC2P2 = (rand() % (alelos-1))+1;
+                            
+                            if(ptCP2 > ptC2P2){
+                                aux = ptCP2;
+                                ptCP2 = ptC2P2;
+                                ptC2P2 = aux;
+                            }
+                        }
+                        printf("\t\t|    P1(%d,%d):P2(%d,%d)\t|   ",ptCP1,ptC2P1,ptCP2,ptC2P2);
+                        
+                        if((m % 2) == 0)
+                            PartiallyMappedCrossover(a[m],a[m+1],hijos[m],ptCP2,ptC2P2);
+                        else{
+                            aux = ptCP2;
+                            ptCP2 = ptCP1;
+                            ptCP1 = aux;
+
+                            aux = ptC2P2;
+                            ptC2P2 = ptC2P1;
+                            ptC2P1 = aux;
+
+                            PartiallyMappedCrossover(a[m],a[m-1],hijos[m],ptCP2,ptC2P2);
+                        }
+                        printf("\n");
+                    }
+                    printf("%8d\t|%4d",m+1,a[m][0]);
+                    for(n = 1; n < alelos; n++){
+                        printf("%d",a[m][n]);
+                    }
+                    ptCP1 = (rand() % (alelos-1))+1;
+                    ptC2P1 = (rand() % (alelos-1))+1;
+
+                    while(ptC2P1 == ptCP1)
+                        ptC2P1 = (rand() % (alelos-1))+1;
+                            
+                    if(ptCP1 > ptC2P1){
+                        aux = ptCP1;
+                        ptCP1 = ptC2P1;
+                        ptC2P1 = aux;
+                    }
+                    printf("\t\t|    P1(%d,%d):-------\t|   ",ptCP1,ptC2P1);
+                    imprimirArray(a[m],alelos);
                 }else{
                     for(m = 0; m < individuos; m++){
                         printf("%8d\t|%4d",m+1,a[m][0]);
@@ -171,7 +235,7 @@ int main()
                         printf("\t\t|    P1(%d,%d):P2(%d,%d)\t|   ",ptCP1,ptC2P1,ptCP2,ptC2P2);
                         
                         if((m % 2) == 0)
-                            PartiallyMappedCrossover(a[m],a[m+1],hijos[m],ptCP1,ptC2P1,ptCP2,ptC2P2);
+                            PartiallyMappedCrossover(a[m],a[m+1],hijos[m],ptCP2,ptC2P2);
                         else{
                             aux = ptCP2;
                             ptCP2 = ptCP1;
@@ -181,7 +245,7 @@ int main()
                             ptC2P2 = ptC2P1;
                             ptC2P1 = aux;
 
-                            PartiallyMappedCrossover(a[m],a[m-1],hijos[m],ptCP1,ptC2P1,ptCP2,ptC2P2);
+                            PartiallyMappedCrossover(a[m],a[m-1],hijos[m],ptCP2,ptC2P2);
                         }
                         printf("\n");
                     }
@@ -193,12 +257,40 @@ int main()
                 break;
                 
             case '3':
-                
+                printf("\n----------------+-----------------------+------------------------\n");
+                printf("      No.\t|\tPobla Ini\t|\tDescendencia\n");
+                printf("----------------+-----------------------+------------------------\n");
                 if(bandera)
                 {
-                    
+                    for(m = 0; m < individuos-1; m++){
+                        printf("%8d\t|%4d",m+1,a[m][0]);
+                        for(n = 1; n < alelos; n++){
+                            printf("%d",a[m][n]);
+                        }
+                        if((m%2) == 0)
+                            PositionBasedCrossover(a[m],a[m+1],hijos[m]);
+                        else
+                            PositionBasedCrossover(a[m],a[m-1],hijos[m]);
+                        printf("\n");
+                    }
+                    printf("%8d\t|%4d",m+1,a[m][0]);
+                    for(n = 1; n < alelos; n++){
+                        printf("%d",a[m][n]);
+                    } 
+                    printf("\t\t|   ");
+                    imprimirArray(a[m],alelos);
                 }else{
-                    
+                    for(m = 0; m < individuos; m++){
+                        printf("%8d\t|%4d",m+1,a[m][0]);
+                        for(n = 1; n < alelos; n++){
+                            printf("%d",a[m][n]);
+                        }
+                        if((m%2) == 0)
+                            PositionBasedCrossover(a[m],a[m+1],hijos[m]);
+                        else
+                            PositionBasedCrossover(a[m],a[m-1],hijos[m]);
+                        printf("\n");
+                    }
                 }
                 printf("\n\nPresione la tecla enter para continuar...");
                 vaciar_buffer();
