@@ -8,4 +8,5 @@ void OrderCrossover(int p1[], int p2[], int h[], int subCad[]);
 void PartiallyMappedCrossover(int p1[], int p2[], int h[], int ptP2, int pt2P2);
 void PositionBasedCrossover(int p1[], int p2[], int h[]);
 void OrderBasedCrossover(int p1[], int p2[], int h[]);
+void CycleCrossover(int p1[], int p2[], int h[]);
 #endif

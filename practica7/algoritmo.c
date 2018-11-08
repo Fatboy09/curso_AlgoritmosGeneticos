@@ -279,3 +279,81 @@ void OrderBasedCrossover(int p1[], int p2[], int h[])
     for(i = 0; i < alelos; i++)
         printf("%d",h[i]);
 }
+
+void CycleCrossover(int p1[], int p2[], int h[])
+{
+    int i,j,k,copiar,continuar=1,posicion,num=0;
+	int hijo2[alelos];
+	posicion=rand()%(alelos-1);
+	hijo2[num]=p1[posicion];
+    //printf("\t\t|   ");
+    printf("\t\t|   (%d",hijo2[num]);
+
+    do{
+		for(i=0;i<alelos;i++){
+	    	if(hijo2[num]==p2[i]){
+			    if(p1[i]!=hijo2[0]){
+		    		num++;
+					hijo2[num]=p1[i];
+					printf("%d",hijo2[num]);		
+				}else{
+					continuar=0;
+				}
+			}
+		}
+	}while(continuar==1);
+    printf(") => ");
+
+    //Para generar al primer hijo, tomamos a P1, removiendole los elementos que no sean parte del ciclo
+	j=0;
+	for(i=0;i<alelos;i++){	
+		while(j<alelos){
+			copiar=0;
+	    	for(k=0;k<=num;k++){
+				if(p1[j]==hijo2[k]){
+		    		copiar=1;
+				}
+			}
+			if(copiar==1){
+				h[i]=p1[j];
+				j++;
+				break;
+			}else{
+				h[i]=0;
+				j++;
+				break;
+			}
+		}
+		if(h[i]==0)
+			printf("X");
+		else
+			printf("%d",h[i]);
+	}
+
+    //Remover de P2 los valores del ciclo:
+    //Rellenar H1 usando los valores restantes de P2’.
+	printf(" => ");
+	j=0;
+	for(i=0;i<alelos;i++){
+		if(h[i]==0){
+			while(j<alelos){
+				copiar=1;
+				for(k=0;k<alelos;k++){
+					if(p2[j]==h[k]){
+						copiar=0;
+					}
+				}
+				if(copiar==1){
+					h[i]=p2[j];
+					j++;
+					break;
+				}
+				j++;
+			}
+		}
+		if(h[i]==0)
+			printf("X");
+		else
+			printf("%d",h[i]);
+	}
+}
